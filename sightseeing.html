@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>観光スポット一覧</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .header-container {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .spot-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spot-list h2 {
+            font-size: 40px;
+        }
+
+        .spot {
+            display: flex;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            overflow: hidden;
+            padding: 10px;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .spot img {
+            width: 150px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .spot-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spot h3 {
+            margin: 0 0 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="spot-list">
+            <h2>観光スポット</h2>
+            <a href="detai.html" class="spot">
+                <img src="/image/Yama.jpg" alt="観光スポット1">
+                <div class="spot-details">
+                    <h3>飯盛山</h3>
+                    <p>飯盛山は福島県会津若松市の中心部から少し東側にある標高314mの山。
+                        白虎隊十九士自刃の地としても知られている。
+                    </p>
+                </div>
+            </a>
+
+            <hr>
+
+            <a href="detai.html" class="spot">
+                <img src="/image/Ysiki.jpg" alt="観光スポット2">
+                <div class="spot-details">
+                    <h3>会津武家屋敷</h3>
+                    <p>会津武家屋敷は、福島県会津若松市東山町石山にある、歴史をテーマとする野外博物館。
+                        1975年（昭和50年）に、会津の武士道精神を後世に伝えるべく、西郷頼母邸などを復元し開場した。
+                    </p>
+                </div>
+            </a>
+
+            <hr>
+
+            <a href="detai.html" class="spot">
+                <img src="/image/kan.jpg" alt="観光スポット3">
+                <div class="spot-details">
+                    <h3>日新館</h3>
+                    <p>日新館は、会津藩の藩校。白虎隊をはじめ、戊辰戦争やその後に活躍する人材を数多く輩出した。</p>
+                </div>
+            </a>
+        </section>
+    </main>
+
+</body>
+
+</html>
