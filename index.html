@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅ガチャ</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 80%;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .info,
+        .usage {
+            background-color: #e0e0e0;
+            padding: 10px;
+            font-size: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .usage a{
+            text-decoration: none;
+            color: black;
+        }
+
+        .info {
+            font-size: 30px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .gacha,
+        .stamp-rally,
+        .sightseeing {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .gacha img,
+        .stamp-rally img,
+        .sightseeing img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .image,
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .button {
+            flex: 2;
+            height: 150px;
+            background-color: #fffc62;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .button a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="info">
+            巡ったスポット数 13<br>
+            保有ポイント数 100P
+        </div>
+        <div class="gacha">
+            <div class="image">
+                <img src="/image/ticket_green.png" alt="Stamp Card">
+            </div>
+            <div class="button">
+                <a href="gacha.html">ガ チ ャ</a>
+            </div>
+        </div>
+        <div class="stamp-rally">
+            <div class="button">
+                <a href="stampCard.html">ス タ ン プ カ ー ド</a>
+            </div>
+            <div class="image">
+                <img src="/image/shopping_stamp_card.png" alt="Stamp Card">
+            </div>
+        </div>
+        <div class="sightseeing">
+            <div class="image">
+                <img src="/image/job_guide_tour.png" alt="Guide">
+            </div>
+            <div class="button">
+                <a href="sightseeing.html">観 光 地 一 覧</a>
+            </div>
+        </div>
+
+        <div class="usage">
+            <a href="Howtouse.html">当サイトのご利用方法</a>
+        </div>
+    </div>
+
+    <footer>
+
+    </footer>
+</body>
+
+</html>

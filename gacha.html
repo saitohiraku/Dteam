@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅ガチャ</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f8f8f8;
+        }
+
+        .tabs {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .tabs button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 20px;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .tabs button.active {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gacha-item img {
+            width: 100%;
+            margin: 10px 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="active">全て</button>
+            <button class="Aizu">会津</button>
+            <button class="Nakadori">中通り</button>
+            <button class="Hamadori">浜通り</button>
+        </div>
+
+        <div class="gacha-item">
+            <a href="/gacha_randum.html"><img src="/image/ランダム.png" alt="ランダムガチャ"></a>
+        </div>
+        <div class="gacha-item">
+            <a href=""><img src="/image/会津 山.png" alt="ランダムガチャ"></a>
+        </div>
+        <div class="gacha-item">
+            <a href=""><img src="/image/会津 癒.png" alt="ランダムガチャ"></a>
+        </div>
+    </div>
+</body>
+
+</html>

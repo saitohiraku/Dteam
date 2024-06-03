@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅のルート</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+        }
+
+        h2{
+            color: red;
+            margin-left: 30px;
+            margin-bottom: 0;
+        }
+        
+        .route {
+            position: relative;
+            margin: 20px;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+        }
+
+        .L{
+            margin-right: 15    0px;
+        }
+
+        .R{
+            margin-left: 150px;
+            text-align: right;
+        }
+
+        .location img {
+            border-radius: 50%;
+            width: 150px;   
+            height: 150px;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .description {
+            font-size: 20px;
+            width: 100px;
+        }
+
+        .right {
+            margin-left: 20px;
+        }
+
+        .left {
+            margin-right: 20px;
+        }
+
+        .footprints {
+            width: 60px;
+            height: auto;
+        }
+
+        .Leg {
+            display: flex;
+            width: 100%;
+        }
+
+        .LLeg {
+            display: flex;
+            justify-content: flex-start;
+            flex: 1;
+        }
+
+        .RLeg {
+            display: flex;
+            justify-content: flex-end;
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="route">
+        <h2>スタート</h2>
+        <div class="location ">
+            <a href="stampCardPass.html"><img src="/image/cafe.jpg" alt="Cafe"></a>
+            <div class="description right">
+                <p>カフェ</p>
+            </div>
+        </div>
+
+        <div class="Leg">
+            <div class="RLeg">
+                <img src="/image/AsiatoR.jpg" class="footprints"></div>
+            <div class="LLeg"></div>
+        </div>
+
+        <div class="location R">
+            <div class="description left">
+                <p>お城</p>
+            </div>
+            <a href="stampCardPass.html"><img src="/image/castle.jpg" alt="Castle"></a>
+        </div>
+
+        <div class="Leg">
+            <div class="RLeg"></div>
+            <div class="LLeg"><img src="/image/AsiatoL.jpg" class="footprints"></div>
+        </div>
+
+        <div class="location L">
+            <a href="stampCardPass.html"><img src="/image/chashitu.jpg" alt="Tea Room"></a>
+            <div class="description right">
+                <p>茶室</p>
+            </div>
+        </div>
+
+        <div class="Leg">
+            <div class="RLeg"><img src="/image/AsiatoR.jpg" class="footprints"></div>
+            <div class="LLeg">
+                
+            </div>
+        </div>
+
+        <div class="location R">
+            <div class="description left">
+                <p>富士山</p>
+            </div>
+            <a href="stampCardPass.html"><img src="/image/fujiyama.jpg" alt="Mount Fuji"></a>
+        </div>
+
+        <div class="Leg">
+            <div class="RLeg">
+                
+            </div>
+            <div class="LLeg"><img src="/image/AsiatoL.jpg" class="footprints"></div>
+        </div>
+
+        <h2>ゴール！</h2>
+        <div class="location L">
+            <a href="stampCardPass.html"><img src="/image/Soba.jpg" alt="Soba"></a>
+            <div class="description right">
+                <p>蕎麦</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

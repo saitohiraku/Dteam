@@ -1,0 +1,71 @@
+.info,
+.usage {
+    background-color: #e0e0e0;
+    padding: 10px;
+    font-size: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.usage a{
+    text-decoration: none;
+    color: black;
+}
+
+.info {
+    font-size: 30px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.gacha,
+.stamp-rally,
+.sightseeing {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.gacha img,
+.stamp-rally img,
+.sightseeing img {
+    max-width: 100%;
+    height: auto;
+}
+
+.image,
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.button {
+    flex: 2;
+    height: 150px;
+    background-color: #fffc62;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.button a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}

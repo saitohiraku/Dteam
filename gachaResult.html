@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅ガチャ</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gacha-item {
+            text-align: center;
+        }
+
+        .gacha-item h1 {
+            font-size: 50px;
+            margin: 0;
+        }
+
+        .gacha-item img {
+            width: 300px;
+            margin: 10px 0px;
+        }
+
+        button {
+            padding: 10px 30px;
+            border: none;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            font-size: 25px;
+        }
+
+        .smallText {
+            margin: 5px 0px;
+        }
+
+        .button {
+            background-color: rgb(255, 251, 0);
+            border-radius: 8px;
+            margin: 30px 0;
+            padding: 10px;
+        }
+
+        .button a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="gacha-item">
+            <h1>結果</h1>
+            <div class="result">
+                <img src="/image/GoshikiNuma.jpg" alt="ランダムガチャ">
+            </div>
+
+            <button>引き直す</button>
+            <div class="smallText">残り：1回</div>
+            <div class="button">
+                <a href="stampCard.html">スタンプカードへ</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
