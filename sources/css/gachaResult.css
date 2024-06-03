@@ -1,0 +1,51 @@
+.container {
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gacha-item {
+    text-align: center;
+}
+
+.gacha-item h1 {
+    font-size: 50px;
+    margin: 0;
+    color: red;
+}
+
+.gacha-item img {
+    width: 300px;
+    margin: 10px 0px;
+}
+
+.result h2{
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    padding: 10px 30px;
+    border: none;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.smallText {
+    margin: 5px 0px;
+}
+
+.button {
+    background-color: rgb(255, 251, 0);
+    border-radius: 8px;
+    margin: 30px 0;
+    padding: 10px;
+}
+
+.button a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+}

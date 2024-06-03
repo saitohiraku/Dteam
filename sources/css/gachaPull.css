@@ -1,0 +1,28 @@
+.container {
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gacha-item {
+    text-align: center;
+}
+
+.gacha-item img {
+    width: 100%;
+    margin: 10px 0px;
+}
+
+button {
+    padding: 10px 30px;
+    border: none;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.smallText{
+    margin: 5px 0px;
+}
