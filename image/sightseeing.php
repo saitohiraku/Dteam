@@ -13,10 +13,10 @@ $err_flag = 0;
 $page_obj = null;
 
 // データベース接続情報
-$host = 'localhost';
-$db = 'k2024ddb';
-$user = 'k2024ddb';
-$pass = 'TKXZRzx7fhBOa81T!';
+$host = 'your_host';
+$db = 'your_database';
+$user = 'your_username';
+$pass = 'your_password';
 
 // データベース接続を作成
 $conn = new mysqli($host, $user, $pass, $db);
@@ -27,7 +27,7 @@ if ($conn->connect_error) {
 }
 
 // データベースからデータを取得
-$sql = "SELECT TD_Name, TD_Photo FROM TouristDestinations_Main";
+$sql = "SELECT name, image_url FROM sightseeing_places";
 $result = $conn->query($sql);
 
 //--------------------------------------------------------------------------------------
@@ -68,31 +68,31 @@ class cmain_node extends cnode {
     public function display(){
         global $result;
         //PHPブロック終了
-        ?>
-        <!-- コンテンツ -->
-        <h1>福島県の観光地一覧</h1>
-        
-        <div class="itemArea">
-            <?php
-            if ($result->num_rows > 0) {
-                // 取得したデータを出力
-                while($row = $result->fetch_assoc()) {
-                    echo '<a href="./sightseeingDetail.php">';
-                    echo '    <div class="itemImg">';
-                    echo '        <img src="' . $row["TD_Photo"] . '" alt="image">';
-                    echo '    </div>';
-                    echo '    <div class="itemText">';
-                    echo '        <h2>' . $row["TD_Name"] . '</h2>';
-                    echo '    </div>';
-                    echo '</a>';
-                }
-            } else {
-                echo "観光地情報がありません。";
-            }
-            ?>
-        </div>
-        <!-- /コンテンツ -->
-        <?php 
+?>
+<!-- コンテンツ -->
+<h1>福島県の観光地一覧</h1>
+
+<div class="itemArea">
+<?php
+if ($result->num_rows > 0) {
+    // 取得したデータを出力
+    while($row = $result->fetch_assoc()) {
+        echo '<a href="./sightseeingDetail.php">';
+        echo '    <div class="itemImg">';
+        echo '        <img src="' . $row["image_url"] . '" alt="image">';
+        echo '    </div>';
+        echo '    <div class="itemText">';
+        echo '        <h2>' . $row["name"] . '</h2>';
+        echo '    </div>';
+        echo '</a>';
+    }
+} else {
+    echo "観光地情報がありません。";
+}
+?>
+</div>
+<!-- /コンテンツ -->
+<?php 
         //PHPブロック再開
     }
     //--------------------------------------------------------------------------------------
