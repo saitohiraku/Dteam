@@ -1,0 +1,20 @@
+h1 {
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.4em;
+    margin-top: 20px;
+}
+
+p {
+    margin: 10px 0;
+}
+
+.contents {
+    max-width: 800px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
