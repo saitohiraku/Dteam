@@ -56,7 +56,7 @@ class cmain_node extends cnode {
         <div class="gacha-item">
             <img src="http://150.95.36.201/~k2024d/image/ランダム正方形.png" alt="ランダムガチャ">
 
-            <button onclick="location.href='http://150.95.36.201/~k2024d/sources/gachaResult.php'">引く</button>
+            <button onclick="location.href='http://150.95.36.201/~k2024d/RK/sources/gachaResult.php'">引く</button>
             <div class="smallText">残り：2回</div>
         </div>
     </div>

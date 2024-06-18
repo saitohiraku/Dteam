@@ -4,18 +4,13 @@ h2{
     margin-bottom: 0;
 }
 
-.route {
-    position: relative;
-    margin: 20px;
-}
-
 .location {
     display: flex;
     align-items: center;
 }
 
 .L{
-    margin-right: 15    0px;
+    margin-right: 150px;
 }
 
 .R{
@@ -38,11 +33,11 @@ h2{
 }
 
 .right {
-    margin-left: 20px;
+    margin-left: 0px;
 }
 
 .left {
-    margin-right: 20px;
+    margin-right: 0px;
 }
 
 .footprints {

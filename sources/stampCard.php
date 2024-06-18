@@ -17,6 +17,9 @@ $page_obj = null;
 ///	本体ノード
 //--------------------------------------------------------------------------------------
 class cmain_node extends cnode {
+    private $td_data = null;
+    private $tgt_id = null;
+    private $arr = null;
 	//--------------------------------------------------------------------------------------
 	/*!
 	@brief	コンストラクタ
@@ -26,6 +29,39 @@ class cmain_node extends cnode {
 		//親クラスのコンストラクタを呼ぶ
 		parent::__construct();
 	}
+    //--------------------------------------------------------------------------------------
+	/*!
+	@brief	観光地を取得
+	@return	なし
+	*/
+	//--------------------------------------------------------------------------------------
+    function get_td($td_id) {
+        $td = new ctd();
+        $this->td_data = $td->get_tgt(false,$td_id);
+    }
+    //--------------------------------------------------------------------------------------
+	/*!
+	@brief	idを取得
+	@return	なし
+	*/
+	//--------------------------------------------------------------------------------------
+	function get_id() {
+        $gacha = new cstamp();
+        $this->tgt_id = $gacha->get_tgt(false, "1");
+    }
+    //--------------------------------------------------------------------------------------
+	/*!
+	@brief	ルートを取得
+	@return	なし
+	*/
+	//--------------------------------------------------------------------------------------
+	function get_route($td_id) {
+        if ($td_id) {
+            $stamp = new cstamp();
+            $this->arr = $stamp->get_all(false, $td_id);
+        }
+    }
+
 	//--------------------------------------------------------------------------------------
 	/*!
 	@brief  本体実行（表示前処理）
@@ -33,6 +69,9 @@ class cmain_node extends cnode {
 	*/
 	//--------------------------------------------------------------------------------------
 	public function execute(){
+        $this->get_id();
+        $this->get_td($this->tgt_id);
+        $this->get_route($this->tgt_id);
 	}
 	//--------------------------------------------------------------------------------------
 	/*!
@@ -52,69 +91,70 @@ class cmain_node extends cnode {
 //PHPブロック終了
 ?>
 <!-- コンテンツ　-->
-	<div class="route">
-        <h2>スタート</h2>
-        <div class="location ">
-            <a href="./stampCardPass.php"><img src="http://150.95.36.201/~k2024d/image/cafe.jpg" alt="Cafe"></a>
-            <div class="description right">
-                <p>カフェ</p>
-            </div>
-        </div>
-
-        <div class="Leg">
-            <div class="RLeg">
-                <img src="http://150.95.36.201/~k2024d/image/AsiatoR.jpg" class="footprints"></div>
-            <div class="LLeg"></div>
-        </div>
-
-        <div class="location R">
-            <div class="description left">
-                <p>お城</p>
-            </div>
-            <a href="./stampCardPass.php"><img src="http://150.95.36.201/~k2024d/image/castle.jpg" alt="Castle"></a>
-        </div>
-
-        <div class="Leg">
-            <div class="RLeg"></div>
-            <div class="LLeg"><img src="http://150.95.36.201/~k2024d/image/AsiatoL.jpg" class="footprints"></div>
-        </div>
-
-        <div class="location L">
-            <a href="./stampCardPass.php"><img src="http://150.95.36.201/~k2024d/image/chashitu.jpg" alt="Tea Room"></a>
-            <div class="description right">
-                <p>茶室</p>
-            </div>
-        </div>
-
-        <div class="Leg">
-            <div class="RLeg"><img src="http://150.95.36.201/~k2024d/image/AsiatoR.jpg" class="footprints"></div>
-            <div class="LLeg">
-                
-            </div>
-        </div>
-
-        <div class="location R">
-            <div class="description left">
-                <p>富士山</p>
-            </div>
-            <a href="./stampCardPass.php"><img src="http://150.95.36.201/~k2024d/image/fujiyama.jpg" alt="Mount Fuji"></a>
-        </div>
-
-        <div class="Leg">
-            <div class="RLeg">
-                
-            </div>
-            <div class="LLeg"><img src="http://150.95.36.201/~k2024d/image/AsiatoL.jpg" class="footprints"></div>
-        </div>
-
-        <h2>ゴール！</h2>
-        <div class="location L">
-            <a href="./stampCardPass.php"><img src="http://150.95.36.201/~k2024d/image/Soba.jpg" alt="Soba"></a>
-            <div class="description right">
-                <p>蕎麦</p>
-            </div>
+<div class="route">
+    <h2>スタート</h2>
+    <div class="location ">
+        <a href="./stampCardPass.php"><img src="<?php echo htmlspecialchars($this->td_data['TD_Photo'], ENT_QUOTES, 'UTF-8'); ?>" alt="Cafe"></a>
+        <div class="description right">
+            <p><?php echo htmlspecialchars($this->td_data['TD_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
         </div>
     </div>
+
+    <div class="Leg">
+        <div class="RLeg">
+            <img src="http://150.95.36.201/~k2024d/image/AsiatoR.jpg" class="footprints"></div>
+        <div class="LLeg"></div>
+    </div>
+
+    <div class="location R">
+        <div class="description left">
+            <p><?php echo htmlspecialchars($this->arr[0]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
+        </div>
+        <a href="./stampCardPass.php"><img src="<?php echo htmlspecialchars($this->arr[0]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Castle"></a>
+    </div>
+
+    <div class="Leg">
+        <div class="RLeg"></div>
+        <div class="LLeg"><img src="http://150.95.36.201/~k2024d/image/AsiatoL.jpg" class="footprints"></div>
+    </div>
+
+    <div class="location L">
+        <a href="./stampCardPass.php"><img src="<?php echo htmlspecialchars($this->arr[1]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Tea Room"></a>
+        <div class="description right">
+            <p><?php echo htmlspecialchars($this->arr[1]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
+        </div>
+    </div>
+
+    <div class="Leg">
+        <div class="RLeg"><img src="http://150.95.36.201/~k2024d/image/AsiatoR.jpg" class="footprints"></div>
+        <div class="LLeg">
+            
+        </div>
+    </div>
+
+    <div class="location R">
+        <div class="description left">
+            <p><?php echo htmlspecialchars($this->arr[2]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
+        </div>
+        <a href="./stampCardPass.php"><img src="<?php echo htmlspecialchars($this->arr[2]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Mount Fuji"></a>
+    </div>
+
+    <div class="Leg">
+        <div class="RLeg">
+            
+        </div>
+        <div class="LLeg"><img src="http://150.95.36.201/~k2024d/image/AsiatoL.jpg" class="footprints"></div>
+    </div>
+
+    <h2>ゴール！</h2>
+    <div class="location L">
+        <a href="./stampCardPass.php"><img src="<?php echo htmlspecialchars($this->arr[3]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Soba"></a>
+        <div class="description right">
+            <p><?php echo htmlspecialchars($this->arr[3]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
+        </div>
+    </div>
+</div>
+
 <!-- /コンテンツ　-->
 <?php 
 //PHPブロック再開

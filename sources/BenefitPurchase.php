@@ -52,7 +52,7 @@ class cmain_node extends cnode {
 //PHPブロック終了
 ?>
 <!-- コンテンツ　-->
-<div class="container">
+<div class="Benefit-Area">
         <h1>特典購入</h1>
         <div class="card point">
             <h2>保有ポイント：100P</h2>

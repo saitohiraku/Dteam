@@ -48,7 +48,7 @@ class cmain_node extends cnode {
 ?>
 
 <!-- コンテンツ　-->
-	<div class="container">
+	<div class="home">
         <div class="info">
             巡ったスポット数 13<br>
             保有ポイント数 100P
@@ -75,6 +75,14 @@ class cmain_node extends cnode {
             </div>
             <div class="button">
                 <a href="./sightseeing.php">観 光 地 一 覧</a>
+            </div>
+        </div>
+		<div class="stamp-rally">
+            <div class="button">
+                <a href="./BenefitPurchase.php">特 典 購 入</a>
+            </div>
+            <div class="image">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPvR0IoVg7EaT62sGHSAL6iwrnceJW-nqMEICZS8Ytp9zeXfEprkABh24jgx5kDfYlt7tHcPMTSAQZV0s-WyoGqwMfTMUu1Y5mO7f511joVlMIowbVwqFbKNrt-Mdzd-dbn0T5EcqoB98/s800/ticket_syouhinken.png" alt="BenefitPurchase">
             </div>
         </div>
 

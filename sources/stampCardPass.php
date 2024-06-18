@@ -52,7 +52,7 @@ class cmain_node extends cnode {
 //PHPブロック終了
 ?>
 <!-- コンテンツ　-->
-	<div class="container">
+	<div class="pass-Area">
         <div class="description">カフェ</div>
         <div class="content">
             <img src="http://150.95.36.201/~k2024d/image/cafe.jpg" alt="Food">
