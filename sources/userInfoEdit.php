@@ -67,7 +67,7 @@ class cmain_node extends cnode
                 <button type="submit">更新する</button>
             </form>
             <div class="message">
-                <a href="profile.php">プロフィールに戻る</a>
+                <a href="./mypage.php">マイページに戻る</a>
             </div>
         </div>
         <!-- /コンテンツ　-->
