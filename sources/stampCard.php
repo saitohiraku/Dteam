@@ -31,16 +31,6 @@ class cmain_node extends cnode {
 	}
     //--------------------------------------------------------------------------------------
 	/*!
-	@brief	観光地を取得
-	@return	なし
-	*/
-	//--------------------------------------------------------------------------------------
-    function get_td($td_id) {
-        $td = new ctd();
-        $this->td_data = $td->get_tgt(false,$td_id);
-    }
-    //--------------------------------------------------------------------------------------
-	/*!
 	@brief	idを取得
 	@return	なし
 	*/
@@ -70,7 +60,6 @@ class cmain_node extends cnode {
 	//--------------------------------------------------------------------------------------
 	public function execute(){
         $this->get_id();
-        $this->get_td($this->tgt_id);
         $this->get_route($this->tgt_id);
 	}
 	//--------------------------------------------------------------------------------------
@@ -94,9 +83,9 @@ class cmain_node extends cnode {
 <div class="route">
     <h2>スタート</h2>
     <div class="location ">
-        <a href="./stampCardPass.php"><img src="<?php echo htmlspecialchars($this->td_data['TD_Photo'], ENT_QUOTES, 'UTF-8'); ?>" alt="Cafe"></a>
+        <a href="./stampCardPass.php?id=<?php echo htmlspecialchars($this->arr[0]['Route_ID'], ENT_QUOTES, 'UTF-8'); ?>"><img src="<?php echo htmlspecialchars($this->arr[0]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Cafe"></a>
         <div class="description right">
-            <p><?php echo htmlspecialchars($this->td_data['TD_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
+            <p><?php echo htmlspecialchars($this->arr[0]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
         </div>
     </div>
 
@@ -108,9 +97,9 @@ class cmain_node extends cnode {
 
     <div class="location R">
         <div class="description left">
-            <p><?php echo htmlspecialchars($this->arr[0]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
+            <p><?php echo htmlspecialchars($this->arr[1]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
         </div>
-        <a href="./stampCardPass.php"><img src="<?php echo htmlspecialchars($this->arr[0]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Castle"></a>
+        <a href="./stampCardPass.php?id=<?php echo htmlspecialchars($this->arr[1]['Route_ID'], ENT_QUOTES, 'UTF-8'); ?>"><img src="<?php echo htmlspecialchars($this->arr[1]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Castle"></a>
     </div>
 
     <div class="Leg">
@@ -119,9 +108,9 @@ class cmain_node extends cnode {
     </div>
 
     <div class="location L">
-        <a href="./stampCardPass.php"><img src="<?php echo htmlspecialchars($this->arr[1]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Tea Room"></a>
+        <a href="./stampCardPass.php?id=<?php echo htmlspecialchars($this->arr[2]['Route_ID'], ENT_QUOTES, 'UTF-8'); ?>"><img src="<?php echo htmlspecialchars($this->arr[2]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Tea Room"></a>
         <div class="description right">
-            <p><?php echo htmlspecialchars($this->arr[1]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
+            <p><?php echo htmlspecialchars($this->arr[2]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
         </div>
     </div>
 
@@ -134,9 +123,9 @@ class cmain_node extends cnode {
 
     <div class="location R">
         <div class="description left">
-            <p><?php echo htmlspecialchars($this->arr[2]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
+            <p><?php echo htmlspecialchars($this->arr[3]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
         </div>
-        <a href="./stampCardPass.php"><img src="<?php echo htmlspecialchars($this->arr[2]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Mount Fuji"></a>
+        <a href="./stampCardPass.php?id=<?php echo htmlspecialchars($this->arr[3]['Route_ID'], ENT_QUOTES, 'UTF-8'); ?>"><img src="<?php echo htmlspecialchars($this->arr[3]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Mount Fuji"></a>
     </div>
 
     <div class="Leg">
@@ -148,9 +137,9 @@ class cmain_node extends cnode {
 
     <h2>ゴール！</h2>
     <div class="location L">
-        <a href="./stampCardPass.php"><img src="<?php echo htmlspecialchars($this->arr[3]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Soba"></a>
+        <a href="./stampCardPass.php?id=<?php echo htmlspecialchars($this->arr[4]['Route_ID'], ENT_QUOTES, 'UTF-8'); ?>"><img src="<?php echo htmlspecialchars($this->arr[4]['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Soba"></a>
         <div class="description right">
-            <p><?php echo htmlspecialchars($this->arr[3]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
+            <p><?php echo htmlspecialchars($this->arr[4]['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></p>
         </div>
     </div>
 </div>
