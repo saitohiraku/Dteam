@@ -1,4 +1,4 @@
-h2{
+h2 {
     color: red;
     margin-left: 30px;
     margin-bottom: 0;
@@ -7,20 +7,21 @@ h2{
 .location {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
-.L{
+.L {
     margin-right: 150px;
 }
 
-.R{
+.R {
     margin-left: 150px;
     text-align: right;
 }
 
 .location img {
     border-radius: 50%;
-    width: 150px;   
+    width: 150px;
     height: 150px;
     object-fit: cover;
     border: 5px solid #fff;
@@ -60,4 +61,45 @@ h2{
     display: flex;
     justify-content: flex-end;
     flex: 1;
+}
+
+.completedR .completedL .main-img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    opacity: 0.5;
+    /* メイン画像を半透明に */
+}
+
+.completedL .overlay-imgL {
+    position: absolute;
+    /* 絶対位置に設定 */
+    top: 0;
+    /* 上部に配置 */
+    left: 0;
+    /* 左側に配置 */
+    width: 150px;
+    /* 重ねる画像のサイズをメイン画像と同じに設定 */
+    height: 150px;
+    object-fit: cover;
+    pointer-events: none;
+    /* クリックイベントを無視するように設定 */
+}
+
+.completedR .overlay-imgR {
+    position: absolute;
+    /* 絶対位置に設定 */
+    top: 0;
+    /* 上部に配置 */
+    right: 0;
+    /* 左側に配置 */
+    width: 150px;
+    /* 重ねる画像のサイズをメイン画像と同じに設定 */
+    height: 150px;
+    object-fit: cover;
+    pointer-events: none;
+    /* クリックイベントを無視するように設定 */
 }
