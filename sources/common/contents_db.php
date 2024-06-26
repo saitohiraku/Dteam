@@ -27,14 +27,15 @@ class ctd extends crecord
 	@return	個数
 	*/
 	//--------------------------------------------------------------------------------------
-	public function get_tgt($debug,$td_id)
+	public function get_tgt($debug, $td_id)
 	{
 		//プレースホルダつき
 		$query = <<< END_BLOCK
 select
 TD_ID,
 TD_Name,
-TD_Photo
+TD_Photo,
+TD_PassWord
 from
 TouristDestinations_Main
 where
@@ -102,7 +103,7 @@ TD_ID,
 TD_Name,
 TD_Photo
 from
-TouristDestinations_Main
+TouristDestinations
 order by
 rand()
 limit 1
@@ -123,7 +124,48 @@ END_BLOCK;
 		}
 	}
 
+	//--------------------------------------------------------------------------------------
+	/*!
+@brief  ガチャを引く回数を取得する
+@param[in]  $debug  デバッグ出力をするかどうか
+@return 個数
+*/
+	//--------------------------------------------------------------------------------------
+	public function get_gachaCnt($debug, $gachaCnt)
+	{
+		if (!cutil::is_number($gachaCnt) || $gachaCnt < 1) {
+			// falseを返す
+			return false;
+		}
 
+		// プレースホルダつき
+		$query = <<<END_BLOCK
+SELECT
+User_Gacha_Cnt
+FROM
+Users
+WHERE
+User_ID = :User_ID
+END_BLOCK;
+
+		$prep_arr = array(
+			':User_ID' => (int)$gachaCnt
+		);
+
+		// 親クラスのselect_query()メンバ関数を呼ぶ
+		$this->select_query(
+			$debug,         // デバッグ表示するかどうか
+			$query,         // プレースホルダつきSQL
+			$prep_arr       // データの配列
+		);
+
+		if ($row = $this->fetch_assoc()) {
+			//取得したパスを返す
+			return $row;
+		} else {
+			return null;
+		}
+	}
 	//--------------------------------------------------------------------------------------
 	/*!
 	@brief	デストラクタ
@@ -169,15 +211,16 @@ class cstamp extends crecord
 		// プレースホルダつき
 		$query = <<<END_BLOCK
 SELECT
-TD_ID
+TD_ID,
+Pass_Conf
 FROM
-StampRally_test
+StampRally
 WHERE
 User_ID = :User_ID
 END_BLOCK;
 
 		$prep_arr = array(
-			':User_ID' => (string)$id
+			':User_ID' => (int)$id
 		);
 
 		// 親クラスのselect_query()メンバ関数を呼ぶ
@@ -187,26 +230,59 @@ END_BLOCK;
 			$prep_arr       // データの配列
 		);
 
-		$result = $this->fetch_assoc();
-
-		if ($result) {
-			return $result['TD_ID'];
+		if ($row = $this->fetch_assoc()) {
+			//取得したパスを返す
+			return $row;
 		} else {
-			return false;
+			return null;
 		}
 	}
 
 	//--------------------------------------------------------------------------------------
 	/*!
-@brief  指定した範囲の配列を返す
+@brief  ルートを取得する
 @param[in]  $debug  デバッグ出力をするかどうか
 @return 個数
 */
 	//--------------------------------------------------------------------------------------
+	public function get_pass($debug, $id)
+	{
+		// プレースホルダつきSQLクエリ
+		$query = <<<END_BLOCK
+SELECT
+	Route_ID,
+	Route_Name,
+    Route_Image,
+    Route_Pass
+FROM
+    Route
+WHERE
+    Route_ID = :Route_ID
+END_BLOCK;
+
+		$prep_arr = array(
+			':Route_ID' => (int)$id
+		);
+
+		// 親クラスのselect_query()メンバ関数を呼ぶ
+		$this->select_query(
+			$debug,         // デバッグ表示するかどうか
+			$query,         // プレースホルダつきSQL
+			$prep_arr       // データの配列
+		);
+		if ($row = $this->fetch_assoc()) {
+			//取得したパスを返す
+			return $row;
+		} else {
+			return null;
+		}
+	}
+
+
 
 	//--------------------------------------------------------------------------------------
 	/*!
-@brief  指定されたTD_IDに基づいてRoute_NameとRoute_Imageを取得する
+@brief  指定されたTD_IDに基づいてRoute_IDとRoute_NameとRoute_Imageを取得する
 @param[in]  $debug  デバッグ出力をするかどうか
 @param[in]  $td_id  TD_ID
 @return 取得した結果の配列
@@ -219,17 +295,18 @@ END_BLOCK;
 		// プレースホルダつきSQLクエリ
 		$query = <<<END_BLOCK
 SELECT
+	Route_ID,
     Route_Name,
     Route_Image,
     TD_ID
 FROM
-    Route_test
+    Route
 WHERE
     TD_ID = :TD_ID
 END_BLOCK;
 
 		$prep_arr = array(
-			':TD_ID' => (string)$td_id
+			':TD_ID' => (int)$td_id
 		);
 
 		// 親クラスのselect_query()メンバ関数を呼ぶ
@@ -242,6 +319,7 @@ END_BLOCK;
 		// 順次取り出す
 		while ($row = $this->fetch_assoc()) {
 			$arr[] = array(
+				'Route_ID' => $row['Route_ID'],
 				'Route_Name' => $row['Route_Name'],
 				'Route_Image' => $row['Route_Image']
 			);
@@ -250,6 +328,7 @@ END_BLOCK;
 		// 取得した配列を返す
 		return $arr;
 	}
+
 
 
 	//--------------------------------------------------------------------------------------
