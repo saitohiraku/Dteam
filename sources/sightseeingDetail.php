@@ -70,7 +70,7 @@ class cmain_node extends cnode
 ?>
         <!-- コンテンツ -->
         <div class="container">
-            <h2><?php echo htmlspecialchars($this->detail['TD_Name'], ENT_QUOTES, 'UTF-8'); ?>⭐️</h2>
+            <h2><?php echo htmlspecialchars($this->detail['TD_Name'], ENT_QUOTES, 'UTF-8'); ?></h2>
             <div class="image-container">
                 <img src="<?php echo htmlspecialchars($this->detail['TD_Photo'], ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($this->detail['TD_Name'], ENT_QUOTES, 'UTF-8'); ?>" style="width:100%; height:auto;">
             </div>
