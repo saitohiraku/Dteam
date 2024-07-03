@@ -7,6 +7,8 @@
 
 //ライブラリをインクルード
 require_once("common/libs.php");
+// ログインチェックを行うファイルをインクルード
+require_once("auth_check.php");
 
 $err_array = array();
 $err_flag = 0;

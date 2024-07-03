@@ -7,156 +7,128 @@
 
 //ライブラリをインクルード
 require_once("common/libs.php");
+// ログインチェックを行うファイルをインクルード
+require_once("auth_check.php");
 
 $err_array = array();
 $err_flag = 0;
 $page_obj = null;
 
-
 //--------------------------------------------------------------------------------------
-///	本体ノード
+/// 本体ノード
 //--------------------------------------------------------------------------------------
-class cmain_node extends cnode
-{
-	private $randomSpot = null;
+class cmain_node extends cnode {
+    private $cnt = null;
+    private $gachaPull = null;
+    private $touristDestination = null;
 
-	//--------------------------------------------------------------------------------------
-	/*!
-	@brief	コンストラクタ
-	*/
-	//--------------------------------------------------------------------------------------
-	public function __construct()
-	{
-		//親クラスのコンストラクタを呼ぶ
-		parent::__construct();
-	}
-	//--------------------------------------------------------------------------------------
-	/*!
-	@brief	ランダムに場所を取得
-	@return	なし
-	*/
-	//--------------------------------------------------------------------------------------
-	function get_rundum_gacha()
-	{
-		$gacha = new cgacha();
-		$this->randomSpot = $gacha->get_rundum(false);
-	}
-	//--------------------------------------------------------------------------------------
-	/*!
-	@brief  ガチャ結果をDBに保存
-	@return なし
-	*/
-	//--------------------------------------------------------------------------------------
-	function save_gacha_result($userId, $tdId)
-	{
-		$servername = DB_HOST;
-		$username = DB_USER;
-		$password = DB_PASS;
-		$dbname = DB_NAME;
+    //--------------------------------------------------------------------------------------
+    /*!
+    @brief コンストラクタ
+    */
+    //--------------------------------------------------------------------------------------
+    public function __construct() {
+        //親クラスのコンストラクタを呼ぶ
+        parent::__construct();
+    }
 
-		// データベース接続の作成
-		$conn = new mysqli($servername, $username, $password, $dbname);
+    //--------------------------------------------------------------------------------------
+    /*!
+    @brief ガチャの回数を取得
+    @return なし
+    */
+    //--------------------------------------------------------------------------------------
+    public function get_GachaCnt(){
+        $gacha = new cgacha();
+        $this->cnt = $gacha->get_gachaCnt(false, $_SESSION['tmD2024_use']['User_ID']);
+    }
 
-		// 接続確認
-		if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
-		}
+    //--------------------------------------------------------------------------------------
+    /*!
+    @brief 観光地情報を取得
+    @return なし
+    */
+    public function get_TouristDestination()
+    {
+        $gacha = new ctd();
+        $this->touristDestination = $gacha->get_TouristDestination($_SESSION['tmD2024_use']['User_ID']);
+    }
 
-		// User_ID が 1 のレコードを確認
-		$checkQuery = "SELECT * FROM StampRally_test WHERE User_ID = ?";
-		$stmt = $conn->prepare($checkQuery);
-		$stmt->bind_param("s", $userId);
-		$stmt->execute();
-		$result = $stmt->get_result();
+    //--------------------------------------------------------------------------------------
+    /*!
+    @brief 本体実行（表示前処理）
+    @return なし
+    */
+    //--------------------------------------------------------------------------------------
+    public function execute()
+    {
+        // ガチャの回数を取得
+        $this->get_GachaCnt();
 
-		if ($result->num_rows > 0) {
-			// 既存のレコードがある場合、更新する
-			$updateQuery = "UPDATE StampRally_test SET TD_ID = ? WHERE User_ID = ?";
-			$updateStmt = $conn->prepare($updateQuery);
-			$updateStmt->bind_param("ss", $tdId, $userId);
-			$updateStmt->execute();
-			$updateStmt->close();
-		} else {
-			// レコードがない場合、新しく挿入する
-			$insertQuery = "INSERT INTO StampRally_test (TD_ID, User_ID) VALUES (?, ?)";
-			$insertStmt = $conn->prepare($insertQuery);
-			$insertStmt->bind_param("ss", $tdId, $userId);
-			$insertStmt->execute();
-			$insertStmt->close();
-		}
+        // ガチャ回数が0以下の場合、処理を終了
+        if ($this->cnt['User_Gacha_Cnt'] <= 0) {
+            $this->gachaPull = null;
+            return;
+        }
 
-		$stmt->close();
-		$conn->close();
-	}
-	//--------------------------------------------------------------------------------------
-	/*!
-	@brief  本体実行（表示前処理）
-	@return なし
-	*/
-	//--------------------------------------------------------------------------------------
-	public function execute()
-	{
-		// ランダムに観光地を取得
-		$this->get_rundum_gacha();
+        // 観光地情報を取得
+        $this->get_TouristDestination();
+    }
 
-		// ガチャ結果をDBに保存
-		if ($this->randomSpot) {
-			$this->save_gacha_result("1", $this->randomSpot['TD_ID']);
-		}
-	}
-	//--------------------------------------------------------------------------------------
-	/*!
-	@brief	構築時の処理(継承して使用)
-	@return	なし
-	*/
-	//--------------------------------------------------------------------------------------
-	public function create()
-	{
-	}
-	//--------------------------------------------------------------------------------------
-	/*!
-	@brief  表示(継承して使用)
-	@return なし
-	*/
-	//--------------------------------------------------------------------------------------
-	public function display()
-	{
-		//PHPブロック終了
+    //--------------------------------------------------------------------------------------
+    /*!
+    @brief 構築時の処理(継承して使用)
+    @return なし
+    */
+    public function create()
+    {
+    }
+
+    //--------------------------------------------------------------------------------------
+    /*!
+    @brief 表示(継承して使用)
+    @return なし
+    */
+    public function display()
+    {
+        //PHPブロック終了
 ?>
-		<!-- コンテンツ　-->
-		<div class="container">
-            <div class="gacha-item">
-                <h1>結果</h1>
-                <div class="result">
-                    <?php if ($this->randomSpot) { ?>
-                        <h2><?php echo htmlspecialchars($this->randomSpot['TD_Name'], ENT_QUOTES, 'UTF-8'); ?></h2>
-                        <img src="<?php echo htmlspecialchars($this->randomSpot['TD_Photo'], ENT_QUOTES, 'UTF-8'); ?>" alt="ランダムガチャ">
-                    <?php } else { ?>
-                        <p>観光地が見つかりませんでした。</p>
-                    <?php } ?>
-                </div>
+    <!-- コンテンツ -->
+    <div class="container">
+        <div class="gacha-item">
+            <h1>結果</h1>
+            <?php if ($this->touristDestination): ?>
+            <div class="result">
+                <h2><?php echo htmlspecialchars($this->touristDestination['TD_Name'], ENT_QUOTES, 'UTF-8'); ?></h2>
+                <img src="<?php echo htmlspecialchars($this->touristDestination['TD_Photo'], ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($this->touristDestination['TD_Name'], ENT_QUOTES, 'UTF-8'); ?>">
+            </div>
+            <?php else: ?>
+            <div class="result">
+                <p>観光地情報が取得できませんでした。</p>
+            </div>
+            <?php endif; ?>
 
-                <button onclick="window.location.reload();">引き直す</button>
-                <div class="smallText">残り：1回</div>
-                <div class="button">
-                    <a href="./stampCard.php">スタンプカードへ</a>
-                </div>
+            <button onclick="">引き直す</button>
+            <div class="smallText">残り：<?php echo htmlspecialchars($this->cnt['User_Gacha_Cnt'], ENT_QUOTES, 'UTF-8'); ?>回</div>
+            <div class="button">
+                <a href="./stampCard.php">スタンプカードへ</a>
             </div>
         </div>
-		<!-- /コンテンツ　-->
+    </div>
+    <!-- /コンテンツ -->
 <?php
-		//PHPブロック再開
-	}
-	//--------------------------------------------------------------------------------------
-	/*!
-	@brief	デストラクタ
-	*/
-	//--------------------------------------------------------------------------------------
-	public function __destruct()
-	{
-		//親クラスのデストラクタを呼ぶ
-		parent::__destruct();
-	}
+        //PHPブロック再開
+    }
+
+    //--------------------------------------------------------------------------------------
+    /*!
+    @brief デストラクタ
+    */
+    public function __destruct()
+    {
+        //親クラスのデストラクタを呼ぶ
+        parent::__destruct();
+    }
 }
 
 //ページを作成
@@ -173,5 +145,4 @@ $page_obj->create();
 $main_obj->execute();
 //ページ全体を表示
 $page_obj->display();
-
 ?>

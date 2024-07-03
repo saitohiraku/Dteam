@@ -60,6 +60,29 @@ END_BLOCK;
 		}
 	}
 
+	//--------------------------------------------------------------------------------------
+	/*!
+	@brief	ガチャ結果の観光地情報を返す
+	@param[in]	$debug	デバッグ出力をするかどうか
+	@param[in]	$td_id　観光地ID
+	@return	個数
+	*/
+	//--------------------------------------------------------------------------------------
+	public function get_TouristDestination($userId)
+    {
+        $query = <<< END_BLOCK
+SELECT
+TD_Name,
+TD_Photo
+FROM
+TouristDestinations
+WHERE
+TD_ID = (SELECT TD_ID FROM StampRally WHERE User_ID = :User_ID)
+END_BLOCK;
+        $prep_arr = array(':User_ID' => $userId);
+        $this->select_query(false, $query, $prep_arr);
+        return $this->fetch_assoc();
+    }
 
 	//--------------------------------------------------------------------------------------
 	/*!
@@ -127,6 +150,45 @@ END_BLOCK;
 
 	//--------------------------------------------------------------------------------------
 	/*!
+	@brief	すべての個数を得る
+	@param[in]	$debug	デバッグ出力をするかどうか
+	@return	個数
+	*/
+	//--------------------------------------------------------------------------------------
+	public function get_Aizu($debug)
+	{
+		//プレースホルダつき
+		$query = <<< END_BLOCK
+select
+TD_ID,
+TD_Name,
+TD_Photo
+from
+TouristDestinations
+where
+TD_Area_ID = 1
+order by
+rand()
+limit 1;
+END_BLOCK;
+		//空のデータ
+		$prep_arr = array();
+		//親クラスのselect_query()メンバ関数を呼ぶ
+		$this->select_query(
+			$debug,			//デバッグ表示するかどうか
+			$query,			//プレースホルダつきSQL
+			$prep_arr		//データの配列
+		);
+		if ($row = $this->fetch_assoc()) {
+			//取得した観光地と画像を返す
+			return $row;
+		} else {
+			return null;
+		}
+	}
+
+	//--------------------------------------------------------------------------------------
+	/*!
 @brief  ガチャを引く回数を取得する
 @param[in]  $debug  デバッグ出力をするかどうか
 @param[in]  $gachaCnt　ガチャのカウント
@@ -168,6 +230,9 @@ END_BLOCK;
 			return null;
 		}
 	}
+
+
+
 	//--------------------------------------------------------------------------------------
 	/*!
 	@brief	デストラクタ
@@ -214,8 +279,7 @@ class cstamp extends crecord
 		// プレースホルダつき
 		$query = <<<END_BLOCK
 SELECT
-TD_ID,
-Pass_Conf
+*
 FROM
 StampRally
 WHERE
