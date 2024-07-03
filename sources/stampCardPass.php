@@ -7,6 +7,8 @@
 
 //ライブラリをインクルード
 require_once("common/libs.php");
+// ログインチェックを行うファイルをインクルード
+require_once("auth_check.php");
 
 $err_array = array();
 $err_flag = 0;
@@ -16,15 +18,65 @@ $page_obj = null;
 //--------------------------------------------------------------------------------------
 ///	本体ノード
 //--------------------------------------------------------------------------------------
-class cmain_node extends cnode {
+class cmain_node extends cnode
+{
+	private $pass = null;
+	private $route = null;
+	private $error_message = null;
+
 	//--------------------------------------------------------------------------------------
 	/*!
 	@brief	コンストラクタ
 	*/
 	//--------------------------------------------------------------------------------------
-	public function __construct() {
+	public function __construct()
+	{
 		//親クラスのコンストラクタを呼ぶ
 		parent::__construct();
+	}
+
+	//--------------------------------------------------------------------------------------
+	/*!
+	@brief  パス確認用カウントを取得
+	@return なし
+	*/
+	//--------------------------------------------------------------------------------------
+	public function get_pass_conf($id)
+	{
+		$stamp = new cstamp();
+		$this->pass = $stamp->get_tgt(false, $id);
+	}
+
+	
+	//--------------------------------------------------------------------------------------
+	/*!
+	@brief  パスを取得
+	@return なし
+	*/
+	//--------------------------------------------------------------------------------------
+	public function get_route($id)
+	{
+		$db_route = new cstamp();
+		$this->route = $db_route->get_pass(false, $id);
+	}
+	
+	//--------------------------------------------------------------------------------------
+	/*!
+    @brief StampRally_test の Pass_Conf を更新
+    @return bool 更新が成功したかどうか
+    */
+	//--------------------------------------------------------------------------------------
+	public function update_pass_conf($id, $pass_conf)
+	{
+		$stamp = new cstamp();
+		$dataarr = array(
+			'Pass_Conf' => $pass_conf + 1
+		);
+		$where = 'User_ID = :User_ID';
+		$prep_arr = array(':User_ID' => $id);
+		$stamp->update_core(false, 'StampRally', $dataarr, $where, $prep_arr);
+
+		
 	}
 	//--------------------------------------------------------------------------------------
 	/*!
@@ -32,7 +84,23 @@ class cmain_node extends cnode {
 	@return なし
 	*/
 	//--------------------------------------------------------------------------------------
-	public function execute(){
+	public function execute()
+	{
+		$this->get_pass_conf($_SESSION['tmD2024_use']['User_ID']);
+
+		if (isset($_POST['password']) && isset($_GET['id'])) {
+			$this->get_route($_GET['id']);
+			$input_password = $_POST['password'];
+			if ($input_password === $this->route['Route_Pass']) {
+				$this->update_pass_conf($_SESSION['tmD2024_use']['User_ID'], $this->pass['Pass_Conf']);
+				header('Location: ./stampCardGetPoint.php?id=' . urlencode($_GET['id']));
+				exit();
+			} else {
+				$this->error_message = "パスワードが正しくありません。";
+			}
+		} elseif (isset($_GET['id'])) {
+			$this->get_route($_GET['id']);
+		}
 	}
 	//--------------------------------------------------------------------------------------
 	/*!
@@ -40,7 +108,8 @@ class cmain_node extends cnode {
 	@return	なし
 	*/
 	//--------------------------------------------------------------------------------------
-	public function create(){
+	public function create()
+	{
 	}
 	//--------------------------------------------------------------------------------------
 	/*!
@@ -48,33 +117,41 @@ class cmain_node extends cnode {
 	@return なし
 	*/
 	//--------------------------------------------------------------------------------------
-	public function display(){
-//PHPブロック終了
+	public function display()
+	{
+		//PHPブロック終了
 ?>
-<!-- コンテンツ　-->
-	<div class="pass-Area">
-        <div class="description">カフェ</div>
-        <div class="content">
-            <img src="http://150.95.36.201/~k2024d/image/cafe.jpg" alt="Food">
-        </div>
-        <div class="password">
-            <p>店員パスワード</p>
-        </div>
-        <div class="input-container">
-            <input type="password" placeholder="パスワード">
-            <button onclick="location.href='./stampCardGetPoint.php'">確定</button>
-        </div>
-    </div>
-<!-- /コンテンツ　-->
-<?php 
-//PHPブロック再開
+		<!-- コンテンツ　-->
+		<p><?php echo htmlspecialchars($this->route['Route_Pass'], ENT_QUOTES, 'UTF-8'); ?></p>
+		<div class="pass-Area">
+			<div class="description"><?php echo htmlspecialchars($this->route['Route_Name'], ENT_QUOTES, 'UTF-8'); ?></div>
+			<div class="content">
+				<img src="<?php echo htmlspecialchars($this->route['Route_Image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Food">
+			</div>
+			<div class="password">
+				<p>店員パスワード</p>
+			</div>
+			<form method="post" action="">
+				<div class="input-container">
+					<?php if ($this->error_message) { ?>
+						<p style="color: red;"><?php echo htmlspecialchars($this->error_message, ENT_QUOTES, 'UTF-8'); ?></p>
+					<?php } ?>
+					<input type="password" name="password" placeholder="パスワード">
+					<button type="submit">確定</button>
+				</div>
+			</form>
+		</div>
+		<!-- /コンテンツ　-->
+<?php
+		//PHPブロック再開
 	}
 	//--------------------------------------------------------------------------------------
 	/*!
 	@brief	デストラクタ
 	*/
 	//--------------------------------------------------------------------------------------
-	public function __destruct(){
+	public function __destruct()
+	{
 		//親クラスのデストラクタを呼ぶ
 		parent::__destruct();
 	}
